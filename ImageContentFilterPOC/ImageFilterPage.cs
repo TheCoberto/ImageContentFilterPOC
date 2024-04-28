@@ -14,7 +14,6 @@ namespace ImageContentFilterPOC
         public ImageFilterPage()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
         }
 
         public class EvaluationData
