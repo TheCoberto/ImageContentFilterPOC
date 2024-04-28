@@ -14,6 +14,7 @@ namespace ImageContentFilterPOC
         public ImageFilterPage()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         public class EvaluationData
@@ -29,28 +30,28 @@ namespace ImageContentFilterPOC
             {
                 // todo: clear image box or set it to placeholder
 
-                ResultLabel.Text = "Evaluating...";
+                this.ResultLabel.Text = "Evaluating...";
 
-                var fileInfo = new FileInfo(fileDialog.FileName);
+                FileInfo? fileInfo = new FileInfo(fileDialog.FileName);
 
                 if (!Helpers.IsPicture(fileInfo.Extension))
                 {
-                    ResultLabel.Text = ResultLabel.Text = "Unable to assess this file type. Please try a different file.";
+                    this.ResultLabel.Text = this.ResultLabel.Text = "Unable to assess this file type. Please try a different file.";
                 }
                 else
                 {
-                    FileStream image = File.OpenRead(fileInfo.FullName);
-                    var imageData = GetAdultRacyResults(image);
+                    FileStream file = File.OpenRead(fileInfo.FullName);
+                    EvaluationData? imageData = GetAdultRacyResults(file);
 
                     if (imageData is not null)
                     {
                         if (!IsContentSafe(imageData))
                         {
-                            ResultLabel.Text = "Fail! NSFW content detected.";
+                            this.ResultLabel.Text = "Fail! NSFW content detected.";
                         }
                         else
                         {
-                            ResultLabel.Text = "Pass! This is a safe file.";
+                            this.ResultLabel.Text = "Pass! This is a safe file.";
                         }
 
                         decimal adultScore = Math.Round((decimal)imageData.ImageModerationResults.AdultClassificationScore, 2);
@@ -66,7 +67,22 @@ namespace ImageContentFilterPOC
                         IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
                         IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
 
-                        imageBox.Image = Image.FromFile(fileInfo.FullName);
+                        using (var image = Image.FromFile(fileInfo.FullName))
+                        {
+                            foreach (var prop in image.PropertyItems)
+                            {
+                                if (prop.Id == 0x0112) //value of EXIF rotation property
+                                {
+                                    int orientationValue = image.GetPropertyItem(prop.Id).Value[0];
+                                    RotateFlipType rotateFlipType = GetRotateFlipType(orientationValue);
+                                    image.RotateFlip(rotateFlipType);
+                                    break;
+                                }
+                            }
+                            imageBox.Image = (Image)image.Clone();
+                            imageBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+                        }
                     }
                 }
             }
@@ -87,8 +103,6 @@ namespace ImageContentFilterPOC
 
         private EvaluationData? GetAdultRacyResults(FileStream image)
         {
-            // todo: get and display the response/error
-
             var imageData = new EvaluationData();
 
             try
@@ -96,12 +110,51 @@ namespace ImageContentFilterPOC
                 imageData.ImageModerationResults = Client.ImageModeration.EvaluateFileInput(image, true);
                 return imageData;
             }
-            catch
+            catch(Exception ex)
             {
-                ResultLabel.Text = $"Unable to evaluate image.";
+                ResultLabel.Text = $"Unable to evaluate image. {ex.Message}";
             }
             return null;
         }
+
+        private static RotateFlipType GetRotateFlipType(int orientationValue)
+        {
+            RotateFlipType rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+
+            switch (orientationValue)
+            {
+                case 1:
+                    rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+                    break;
+                case 2:
+                    rotateFlipType = RotateFlipType.RotateNoneFlipX;
+                    break;
+                case 3:
+                    rotateFlipType = RotateFlipType.Rotate180FlipNone;
+                    break;
+                case 4:
+                    rotateFlipType = RotateFlipType.Rotate180FlipX;
+                    break;
+                case 5:
+                    rotateFlipType = RotateFlipType.Rotate90FlipX;
+                    break;
+                case 6:
+                    rotateFlipType = RotateFlipType.Rotate90FlipNone;
+                    break;
+                case 7:
+                    rotateFlipType = RotateFlipType.Rotate270FlipX;
+                    break;
+                case 8:
+                    rotateFlipType = RotateFlipType.Rotate270FlipNone;
+                    break;
+                default:
+                    rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+                    break;
+            }
+
+            return rotateFlipType;
+        }
+
 
         private void DriversLicense_Click(object sender, EventArgs e)
         {
