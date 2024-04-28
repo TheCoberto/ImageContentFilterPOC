@@ -39,7 +39,7 @@ namespace ImageContentFilterPOC
                 }
                 else
                 {
-                    FileStream file = File.OpenRead(fileInfo.FullName);
+                    Stream file = File.OpenRead(fileInfo.FullName);
                     EvaluationData? imageData = GetAdultRacyResults(file);
 
                     if (imageData is not null)
@@ -66,11 +66,12 @@ namespace ImageContentFilterPOC
                         IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
                         IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
 
+                        // todo: handle problematic images that fail to display for unknown reasons
                         using (var image = Image.FromFile(fileInfo.FullName))
                         {
                             foreach (var prop in image.PropertyItems)
                             {
-                                if (prop.Id == 0x0112) //value of EXIF rotation property
+                                if (prop.Id == 0x0112) // value of EXIF rotation property
                                 {
                                     int orientationValue = image.GetPropertyItem(prop.Id).Value[0];
                                     RotateFlipType rotateFlipType = GetRotateFlipType(orientationValue);
@@ -80,7 +81,6 @@ namespace ImageContentFilterPOC
                             }
                             imageBox.Image = (Image)image.Clone();
                             imageBox.SizeMode = PictureBoxSizeMode.Zoom;
-
                         }
                     }
                 }
@@ -100,16 +100,34 @@ namespace ImageContentFilterPOC
             return true;
         }
 
-        private EvaluationData? GetAdultRacyResults(FileStream image)
+        private EvaluationData? GetAdultRacyResults(Stream image)
         {
             var imageData = new EvaluationData();
 
             try
             {
+                if (image.Length > 4000000) // If larger than 4MB
+                {
+                    var imageObj = Image.FromStream(image);
+                    var scaleFactor = (double)800 / (double)Math.Max(imageObj.Width, imageObj.Height);
+                    var newWidth = (int)(imageObj.Width * scaleFactor);
+                    var newHeight = (int)(imageObj.Height * scaleFactor);
+
+                    using var newImage = new Bitmap(newWidth, newHeight);
+                    using var graphics = Graphics.FromImage(newImage);
+                    graphics.DrawImage(imageObj, 0, 0, newWidth, newHeight);
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        newImage.Save(memoryStream, imageObj.RawFormat);
+                        image = new MemoryStream(memoryStream.ToArray());
+                    }
+                }
+
                 imageData.ImageModerationResults = Client.ImageModeration.EvaluateFileInput(image, true);
                 return imageData;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ResultLabel.Text = $"Unable to evaluate image. {ex.Message}";
             }
