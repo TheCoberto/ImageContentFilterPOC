@@ -9,6 +9,8 @@ namespace ImageContentFilterPOC
 {
     public partial class ImageFilterPage : Form
     {
+        public ContentModeratorClient Client = Helpers.Authenticate(Globals.ContentModSubscriptionKey, Globals.ContentModEndPoint);
+
         public ImageFilterPage()
         {
             InitializeComponent();
@@ -16,7 +18,6 @@ namespace ImageContentFilterPOC
 
         public class EvaluationData
         {
-            // The image moderation results.
             public Evaluate? ImageModerationResults;
         }
 
@@ -26,23 +27,47 @@ namespace ImageContentFilterPOC
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
+                // todo: clear image box or set it to placeholder
+
+                ResultLabel.Text = "Evaluating...";
+
                 var fileInfo = new FileInfo(fileDialog.FileName);
 
-                if (!IsContentSafe(fileInfo))
+                if (!Helpers.IsPicture(fileInfo.Extension))
                 {
-                    ResultLabel.Text = "Fail! NSFW content detected.";
+                    ResultLabel.Text = ResultLabel.Text = "Unable to assess this file type. Please try a different file.";
                 }
                 else
                 {
-                    ResultLabel.Text = "Pass! This is a safe file.";
-                }
-                try
-                {
-                    imageBox.Image = Image.FromFile(fileInfo.FullName);
-                }
-                catch
-                {
-                    ResultLabel.Text = "Unable to display. Please try a different image.";
+                    FileStream image = File.OpenRead(fileInfo.FullName);
+                    var imageData = GetAdultRacyResults(image);
+
+                    if (imageData is not null)
+                    {
+                        if (!IsContentSafe(imageData))
+                        {
+                            ResultLabel.Text = "Fail! NSFW content detected.";
+                        }
+                        else
+                        {
+                            ResultLabel.Text = "Pass! This is a safe file.";
+                        }
+
+                        decimal adultScore = Math.Round((decimal)imageData.ImageModerationResults.AdultClassificationScore, 2);
+                        decimal racyScore = Math.Round((decimal)imageData.ImageModerationResults.RacyClassificationScore, 2);
+                        decimal adultScoreRounded = adultScore * 100;
+                        decimal racyScoreRounded = racyScore * 100;
+                        int adultScorePercentage = (int)Math.Round((decimal)adultScoreRounded);
+                        int racyScorePercentage = (int)Math.Round((decimal)racyScoreRounded);
+
+                        AdultScoreTextBox.Text = $"{adultScore} - {adultScorePercentage}%";
+                        RacyScoreTextBox.Text = $"{racyScore} - {racyScorePercentage}%";
+
+                        IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
+                        IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
+
+                        imageBox.Image = Image.FromFile(fileInfo.FullName);
+                    }
                 }
             }
             else
@@ -51,39 +76,31 @@ namespace ImageContentFilterPOC
             }
         }
 
-        public bool IsContentSafe(FileInfo fileInfo)
+        public bool IsContentSafe(EvaluationData imageData)
         {
-            ResultLabel.Text = "Evaluating...";
-
-            if (Helpers.IsPicture(fileInfo))
-            {
-                FileStream image = File.OpenRead(fileInfo.FullName);
-
-                ContentModeratorClient client = Helpers.Authenticate(Globals.ContentModSubscriptionKey, Globals.ContentModEndPoint);
-
-                var imageData = new EvaluationData
-                {
-                    ImageModerationResults = client.ImageModeration.EvaluateFileInput(image, true)
-                };
-
-                if (imageData is not null)
-                {
-                    decimal adultScore = Math.Round((decimal)imageData.ImageModerationResults.AdultClassificationScore, 2);
-                    decimal racyScore = Math.Round((decimal)imageData.ImageModerationResults.RacyClassificationScore, 2);
-                    AdultScoreTextBox.Text = adultScore.ToString();
-                    RacyScoreTextBox.Text = racyScore.ToString();
-
-                    IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
-                    IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
-                }
-
-                Thread.Sleep(5000);
-
-                if ((bool)imageData.ImageModerationResults.IsImageRacyClassified || ((bool)imageData.ImageModerationResults.IsImageAdultClassified))
-                    return false;
-            }
+            if ((bool)imageData.ImageModerationResults.IsImageRacyClassified ||
+                ((bool)imageData.ImageModerationResults.IsImageAdultClassified))
+                return false;
 
             return true;
+        }
+
+        private EvaluationData? GetAdultRacyResults(FileStream image)
+        {
+            // todo: get and display the response/error
+
+            var imageData = new EvaluationData();
+
+            try
+            {
+                imageData.ImageModerationResults = Client.ImageModeration.EvaluateFileInput(image, true);
+                return imageData;
+            }
+            catch
+            {
+                ResultLabel.Text = $"Unable to evaluate image.";
+            }
+            return null;
         }
 
         private void DriversLicense_Click(object sender, EventArgs e)
@@ -96,7 +113,7 @@ namespace ImageContentFilterPOC
 
                 ResultLabel.Text = "Evaluating...";
 
-                if (Helpers.IsPicture(fileInfo))
+                if (Helpers.IsPicture(fileInfo.Extension))
                 {
                     FileStream image = File.OpenRead(fileInfo.FullName);
 
@@ -159,7 +176,7 @@ namespace ImageContentFilterPOC
 
                 ResultLabel.Text = "Evaluating...";
 
-                if (Helpers.IsPicture(fileInfo))
+                if (Helpers.IsPicture(fileInfo.Extension))
                 {
                     FileStream image = File.OpenRead(fileInfo.FullName);
 

@@ -4,13 +4,15 @@ namespace ImageContentFilterPOC
 {
     class Helpers
     {
-        public static bool IsPicture(FileInfo fileInfo)
+        public static bool IsPicture(string fileExtension)
         {
-            if (fileInfo.Extension == ".jpeg" 
-                || fileInfo.Extension == ".jpg" 
-                || fileInfo.Extension == ".png"
-                || fileInfo.Extension == ".gif"
-                || fileInfo.Extension == ".jfif")
+            fileExtension = fileExtension.ToLower();
+
+            if (fileExtension == ".jpeg" 
+                || fileExtension == ".jpg" 
+                || fileExtension == ".png"
+                || fileExtension == ".gif"
+                || fileExtension == ".jfif")
                 return true;
             else
                 return false;
