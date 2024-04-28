@@ -27,8 +27,6 @@ namespace ImageContentFilterPOC
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                // todo: clear image box or set it to placeholder
-
                 this.ResultLabel.Text = "Evaluating...";
 
                 FileInfo? fileInfo = new FileInfo(fileDialog.FileName);
@@ -66,21 +64,27 @@ namespace ImageContentFilterPOC
                         IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
                         IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
 
-                        // todo: handle problematic images that fail to display for unknown reasons
-                        using (var image = Image.FromFile(fileInfo.FullName))
+                        try
                         {
-                            foreach (var prop in image.PropertyItems)
+                            using (var image = Image.FromFile(fileInfo.FullName))
                             {
-                                if (prop.Id == 0x0112) // value of EXIF rotation property
+                                foreach (var prop in image.PropertyItems)
                                 {
-                                    int orientationValue = image.GetPropertyItem(prop.Id).Value[0];
-                                    RotateFlipType rotateFlipType = GetRotateFlipType(orientationValue);
-                                    image.RotateFlip(rotateFlipType);
-                                    break;
+                                    if (prop.Id == 0x0112) // value of EXIF rotation property
+                                    {
+                                        int orientationValue = image.GetPropertyItem(prop.Id).Value[0];
+                                        RotateFlipType rotateFlipType = GetRotateFlipType(orientationValue);
+                                        image.RotateFlip(rotateFlipType);
+                                        break;
+                                    }
                                 }
+                                imageBox.Image = (Image)image.Clone();
+                                imageBox.SizeMode = PictureBoxSizeMode.Zoom;
                             }
-                            imageBox.Image = (Image)image.Clone();
-                            imageBox.SizeMode = PictureBoxSizeMode.Zoom;
+                        }
+                        catch
+                        {
+                            imageBox.Image = Image.FromFile(@"C:\Repos\Content Moderation POC\Sample Images\error.jpg");
                         }
                     }
                 }
