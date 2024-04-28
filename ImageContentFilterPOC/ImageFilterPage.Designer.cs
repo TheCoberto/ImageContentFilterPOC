@@ -34,6 +34,9 @@
             this.imageBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +73,7 @@
             this.imageBox.Location = new System.Drawing.Point(114, 35);
             this.imageBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.imageBox.Name = "imageBox";
-            this.imageBox.Size = new System.Drawing.Size(1248, 522);
+            this.imageBox.Size = new System.Drawing.Size(1392, 522);
             this.imageBox.TabIndex = 3;
             this.imageBox.TabStop = false;
             // 
@@ -96,11 +99,40 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.CreditCard_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(970, 602);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 15);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Adult Score:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1015, 602);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 15);
+            this.label3.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1050, 602);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(141, 15);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "0 is lowest; 1.00 is highest";
+            // 
             // ImageFilterPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1515, 656);
+            this.ClientSize = new System.Drawing.Size(1538, 656);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.imageBox);
@@ -123,5 +155,8 @@
         private PictureBox imageBox;
         private Button button1;
         private Button button3;
+        private Label label2;
+        private Label label3;
+        private Label label4;
     }
 }

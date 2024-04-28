@@ -66,6 +66,10 @@ namespace ImageContentFilterPOC
                     ImageModerationResults = client.ImageModeration.EvaluateFileInput(image, true)
                 };
 
+                double? score = imageData.ImageModerationResults.AdultClassificationScore;
+                decimal scoreRounded = Math.Round((decimal)score, 2);
+                label4.Text = scoreRounded.ToString();
+
                 Thread.Sleep(1000);
 
                 if ((bool)imageData.ImageModerationResults.IsImageRacyClassified)
