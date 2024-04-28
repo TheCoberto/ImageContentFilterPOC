@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AdultOrRacy = new System.Windows.Forms.Button();
+            this.AdultOrRacyButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ResultLabel = new System.Windows.Forms.Label();
             this.imageBox = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.DriversLicenseButton = new System.Windows.Forms.Button();
+            this.CreditCardButton = new System.Windows.Forms.Button();
             this.AdultScoreLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,15 +48,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // AdultOrRacy
+            // AdultOrRacyButton
             // 
-            this.AdultOrRacy.Location = new System.Drawing.Point(29, 564);
-            this.AdultOrRacy.Name = "AdultOrRacy";
-            this.AdultOrRacy.Size = new System.Drawing.Size(121, 24);
-            this.AdultOrRacy.TabIndex = 0;
-            this.AdultOrRacy.Text = "Adult Or Racy";
-            this.AdultOrRacy.UseVisualStyleBackColor = true;
-            this.AdultOrRacy.Click += new System.EventHandler(this.AdultOrRacy_Click);
+            this.AdultOrRacyButton.Location = new System.Drawing.Point(29, 564);
+            this.AdultOrRacyButton.Name = "AdultOrRacyButton";
+            this.AdultOrRacyButton.Size = new System.Drawing.Size(121, 24);
+            this.AdultOrRacyButton.TabIndex = 0;
+            this.AdultOrRacyButton.Text = "Adult Or Racy";
+            this.AdultOrRacyButton.UseVisualStyleBackColor = true;
+            this.AdultOrRacyButton.Click += new System.EventHandler(this.AdultOrRacyButton_Click);
             // 
             // label1
             // 
@@ -85,25 +85,27 @@
             this.imageBox.TabIndex = 3;
             this.imageBox.TabStop = false;
             // 
-            // button1
+            // DriversLicenseButton
             // 
-            this.button1.Location = new System.Drawing.Point(28, 596);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 24);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Driver\'s License";
-            this.button1.UseVisualStyleBackColor = true;
+            this.DriversLicenseButton.Location = new System.Drawing.Point(28, 596);
+            this.DriversLicenseButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.DriversLicenseButton.Name = "DriversLicenseButton";
+            this.DriversLicenseButton.Size = new System.Drawing.Size(122, 24);
+            this.DriversLicenseButton.TabIndex = 4;
+            this.DriversLicenseButton.Text = "Driver\'s License";
+            this.DriversLicenseButton.UseVisualStyleBackColor = true;
+            this.DriversLicenseButton.Click += new System.EventHandler(this.DriversLicenseButton_Click);
             // 
-            // button3
+            // CreditCardButton
             // 
-            this.button3.Location = new System.Drawing.Point(29, 627);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(122, 22);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Credit Card";
-            this.button3.UseVisualStyleBackColor = true;
+            this.CreditCardButton.Location = new System.Drawing.Point(29, 627);
+            this.CreditCardButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.CreditCardButton.Name = "CreditCardButton";
+            this.CreditCardButton.Size = new System.Drawing.Size(122, 22);
+            this.CreditCardButton.TabIndex = 6;
+            this.CreditCardButton.Text = "Credit Card";
+            this.CreditCardButton.UseVisualStyleBackColor = true;
+            this.CreditCardButton.Click += new System.EventHandler(this.CreditCardButton_Click);
             // 
             // AdultScoreLabel
             // 
@@ -215,12 +217,12 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.AdultScoreLabel);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.CreditCardButton);
+            this.Controls.Add(this.DriversLicenseButton);
             this.Controls.Add(this.imageBox);
             this.Controls.Add(this.ResultLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.AdultOrRacy);
+            this.Controls.Add(this.AdultOrRacyButton);
             this.Name = "ImageFilterPage";
             this.Text = "Content Moderator POC";
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).EndInit();
@@ -235,8 +237,8 @@
         private Label label1;
         private Label ResultLabel;
         private PictureBox imageBox;
-        private Button button1;
-        private Button button3;
+        private Button DriversLicenseButton;
+        private Button CreditCardButton;
         private Label AdultScoreLabel;
         private Label label3;
         private Label label4;
@@ -248,6 +250,6 @@
         private Label IsAdultLabel;
         private TextBox IsAdultTextBox;
         private TextBox IsRacyTextBox;
-        private Button AdultOrRacy;
+        private Button AdultOrRacyButton;
     }
 }

@@ -21,7 +21,7 @@ namespace ImageContentFilterPOC
             public Evaluate? ImageModerationResults;
         }
 
-        private void AdultOrRacy_Click(object sender, EventArgs e)
+        private void AdultOrRacyButton_Click(object sender, EventArgs e)
         {
             var fileDialog = new OpenFileDialog();
 
@@ -155,7 +155,7 @@ namespace ImageContentFilterPOC
         }
 
 
-        private void DriversLicense_Click(object sender, EventArgs e)
+        private void DriversLicenseButton_Click(object sender, EventArgs e)
         {
             var fileDialog = new OpenFileDialog();
 
@@ -218,7 +218,7 @@ namespace ImageContentFilterPOC
             ResultLabel.Text = "Cannot identify. Please try again.";
         }
 
-        private void CreditCard_Click(object sender, EventArgs e)
+        private void CreditCardButton_Click(object sender, EventArgs e)
         {
             var fileDialog = new OpenFileDialog();
 
