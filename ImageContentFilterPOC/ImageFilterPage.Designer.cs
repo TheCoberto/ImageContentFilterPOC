@@ -28,123 +28,213 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BrowseFiles = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ResultLabel = new System.Windows.Forms.Label();
-            this.imageBox = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.imageBox)).BeginInit();
-            this.SuspendLayout();
+            BrowseFiles = new Button();
+            label1 = new Label();
+            ResultLabel = new Label();
+            imageBox = new PictureBox();
+            button1 = new Button();
+            button3 = new Button();
+            AdultScoreLabel = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            RacyScoreLabel = new Label();
+            label6 = new Label();
+            AdultScoreTextBox = new TextBox();
+            RacyScoreTextBox = new TextBox();
+            IsRacyLabel = new Label();
+            IsAdultLabel = new Label();
+            IsAdultTextBox = new TextBox();
+            IsRacyTextBox = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)imageBox).BeginInit();
+            SuspendLayout();
             // 
             // BrowseFiles
             // 
-            this.BrowseFiles.Location = new System.Drawing.Point(114, 561);
-            this.BrowseFiles.Name = "BrowseFiles";
-            this.BrowseFiles.Size = new System.Drawing.Size(121, 24);
-            this.BrowseFiles.TabIndex = 0;
-            this.BrowseFiles.Text = "Adult Or Racy";
-            this.BrowseFiles.UseVisualStyleBackColor = true;
-            this.BrowseFiles.Click += new System.EventHandler(this.AdultOrRacy_Click);
+            BrowseFiles.Location = new Point(277, 1533);
+            BrowseFiles.Margin = new Padding(7, 8, 7, 8);
+            BrowseFiles.Name = "BrowseFiles";
+            BrowseFiles.Size = new Size(294, 66);
+            BrowseFiles.TabIndex = 0;
+            BrowseFiles.Text = "Adult Or Racy";
+            BrowseFiles.UseVisualStyleBackColor = true;
+            BrowseFiles.Click += AdultOrRacy_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(618, 602);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Results:";
+            label1.AutoSize = true;
+            label1.Location = new Point(701, 1634);
+            label1.Margin = new Padding(7, 0, 7, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(118, 41);
+            label1.TabIndex = 1;
+            label1.Text = "Results:";
             // 
             // ResultLabel
             // 
-            this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(674, 602);
-            this.ResultLabel.Name = "ResultLabel";
-            this.ResultLabel.Size = new System.Drawing.Size(225, 15);
-            this.ResultLabel.TabIndex = 2;
-            this.ResultLabel.Text = "Select an image file (.jpeg, .jpg, .png, .gif)";
+            ResultLabel.AutoSize = true;
+            ResultLabel.Location = new Point(813, 1634);
+            ResultLabel.Margin = new Padding(7, 0, 7, 0);
+            ResultLabel.Name = "ResultLabel";
+            ResultLabel.Size = new Size(562, 41);
+            ResultLabel.TabIndex = 2;
+            ResultLabel.Text = "Select an image file (.jpeg, .jpg, .png, .gif)";
             // 
             // imageBox
             // 
-            this.imageBox.Location = new System.Drawing.Point(114, 35);
-            this.imageBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.imageBox.Name = "imageBox";
-            this.imageBox.Size = new System.Drawing.Size(1392, 522);
-            this.imageBox.TabIndex = 3;
-            this.imageBox.TabStop = false;
+            imageBox.Location = new Point(277, 96);
+            imageBox.Margin = new Padding(5, 3, 5, 3);
+            imageBox.Name = "imageBox";
+            imageBox.Size = new Size(3381, 1427);
+            imageBox.TabIndex = 3;
+            imageBox.TabStop = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(113, 593);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 24);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Driver\'s License";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.DriversLicense_Click);
+            button1.Location = new Point(274, 1621);
+            button1.Margin = new Padding(5, 3, 5, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(296, 66);
+            button1.TabIndex = 4;
+            button1.Text = "Driver's License";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += DriversLicense_Click;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(114, 624);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(122, 22);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Credit Card";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.CreditCard_Click);
+            button3.Location = new Point(277, 1706);
+            button3.Margin = new Padding(5, 3, 5, 3);
+            button3.Name = "button3";
+            button3.Size = new Size(296, 60);
+            button3.TabIndex = 6;
+            button3.Text = "Credit Card";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += CreditCard_Click;
             // 
-            // label2
+            // AdultScoreLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(970, 602);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 15);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Adult Score:";
+            AdultScoreLabel.AutoSize = true;
+            AdultScoreLabel.Location = new Point(1778, 1599);
+            AdultScoreLabel.Margin = new Padding(7, 0, 7, 0);
+            AdultScoreLabel.Name = "AdultScoreLabel";
+            AdultScoreLabel.Size = new Size(178, 41);
+            AdultScoreLabel.TabIndex = 7;
+            AdultScoreLabel.Text = "Adult Score:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1015, 602);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 15);
-            this.label3.TabIndex = 8;
+            label3.AutoSize = true;
+            label3.Location = new Point(2465, 1645);
+            label3.Margin = new Padding(7, 0, 7, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(0, 41);
+            label3.TabIndex = 8;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1050, 602);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(141, 15);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "0 is lowest; 1.00 is highest";
+            label4.AutoSize = true;
+            label4.Location = new Point(1972, 1599);
+            label4.Margin = new Padding(7, 0, 7, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(360, 41);
+            label4.TabIndex = 9;
+            label4.Text = "0 is lowest; 1.00 is highest";
+            // 
+            // RacyScoreLabel
+            // 
+            RacyScoreLabel.AutoSize = true;
+            RacyScoreLabel.Location = new Point(1778, 1660);
+            RacyScoreLabel.Margin = new Padding(7, 0, 7, 0);
+            RacyScoreLabel.Name = "RacyScoreLabel";
+            RacyScoreLabel.Size = new Size(169, 41);
+            RacyScoreLabel.TabIndex = 10;
+            RacyScoreLabel.Text = "Racy Score:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(1972, 1660);
+            label6.Margin = new Padding(7, 0, 7, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(360, 41);
+            label6.TabIndex = 11;
+            label6.Text = "0 is lowest; 1.00 is highest";
+            // 
+            // AdultScoreTextBox
+            // 
+            AdultScoreTextBox.Location = new Point(2354, 1596);
+            AdultScoreTextBox.Name = "AdultScoreTextBox";
+            AdultScoreTextBox.Size = new Size(250, 47);
+            AdultScoreTextBox.TabIndex = 12;
+            // 
+            // RacyScoreTextBox
+            // 
+            RacyScoreTextBox.Location = new Point(2354, 1667);
+            RacyScoreTextBox.Name = "RacyScoreTextBox";
+            RacyScoreTextBox.Size = new Size(250, 47);
+            RacyScoreTextBox.TabIndex = 13;
+            // 
+            // IsRacyLabel
+            // 
+            IsRacyLabel.AutoSize = true;
+            IsRacyLabel.Location = new Point(2836, 1673);
+            IsRacyLabel.Margin = new Padding(7, 0, 7, 0);
+            IsRacyLabel.Name = "IsRacyLabel";
+            IsRacyLabel.Size = new Size(116, 41);
+            IsRacyLabel.TabIndex = 14;
+            IsRacyLabel.Text = "Is Racy:";
+            // 
+            // IsAdultLabel
+            // 
+            IsAdultLabel.AutoSize = true;
+            IsAdultLabel.Location = new Point(2836, 1602);
+            IsAdultLabel.Margin = new Padding(7, 0, 7, 0);
+            IsAdultLabel.Name = "IsAdultLabel";
+            IsAdultLabel.Size = new Size(125, 41);
+            IsAdultLabel.TabIndex = 15;
+            IsAdultLabel.Text = "Is Adult:";
+            // 
+            // IsAdultTextBox
+            // 
+            IsAdultTextBox.Location = new Point(2977, 1593);
+            IsAdultTextBox.Name = "IsAdultTextBox";
+            IsAdultTextBox.Size = new Size(250, 47);
+            IsAdultTextBox.TabIndex = 16;
+            // 
+            // IsRacyTextBox
+            // 
+            IsRacyTextBox.Location = new Point(2977, 1667);
+            IsRacyTextBox.Name = "IsRacyTextBox";
+            IsRacyTextBox.Size = new Size(250, 47);
+            IsRacyTextBox.TabIndex = 17;
             // 
             // ImageFilterPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1538, 656);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.imageBox);
-            this.Controls.Add(this.ResultLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.BrowseFiles);
-            this.Name = "ImageFilterPage";
-            this.Text = "Content Moderator POC";
-            ((System.ComponentModel.ISupportInitialize)(this.imageBox)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(17F, 41F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(3735, 1793);
+            Controls.Add(IsRacyTextBox);
+            Controls.Add(IsAdultTextBox);
+            Controls.Add(IsAdultLabel);
+            Controls.Add(IsRacyLabel);
+            Controls.Add(RacyScoreTextBox);
+            Controls.Add(AdultScoreTextBox);
+            Controls.Add(label6);
+            Controls.Add(RacyScoreLabel);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(AdultScoreLabel);
+            Controls.Add(button3);
+            Controls.Add(button1);
+            Controls.Add(imageBox);
+            Controls.Add(ResultLabel);
+            Controls.Add(label1);
+            Controls.Add(BrowseFiles);
+            Margin = new Padding(7, 8, 7, 8);
+            Name = "ImageFilterPage";
+            Text = "Content Moderator POC";
+            ((System.ComponentModel.ISupportInitialize)imageBox).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -155,8 +245,16 @@
         private PictureBox imageBox;
         private Button button1;
         private Button button3;
-        private Label label2;
+        private Label AdultScoreLabel;
         private Label label3;
         private Label label4;
+        private Label RacyScoreLabel;
+        private Label label6;
+        private TextBox AdultScoreTextBox;
+        private TextBox RacyScoreTextBox;
+        private Label IsRacyLabel;
+        private Label IsAdultLabel;
+        private TextBox IsAdultTextBox;
+        private TextBox IsRacyTextBox;
     }
 }

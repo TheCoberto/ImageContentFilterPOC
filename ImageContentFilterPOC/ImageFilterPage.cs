@@ -17,7 +17,7 @@ namespace ImageContentFilterPOC
         public class EvaluationData
         {
             // The image moderation results.
-            public Evaluate ImageModerationResults;
+            public Evaluate? ImageModerationResults;
         }
 
         private void AdultOrRacy_Click(object sender, EventArgs e)
@@ -66,15 +66,20 @@ namespace ImageContentFilterPOC
                     ImageModerationResults = client.ImageModeration.EvaluateFileInput(image, true)
                 };
 
-                double? score = imageData.ImageModerationResults.AdultClassificationScore;
-                decimal scoreRounded = Math.Round((decimal)score, 2);
-                label4.Text = scoreRounded.ToString();
+                if (imageData is not null)
+                {
+                    decimal adultScore = Math.Round((decimal)imageData.ImageModerationResults.AdultClassificationScore, 2);
+                    decimal racyScore = Math.Round((decimal)imageData.ImageModerationResults.RacyClassificationScore, 2);
+                    AdultScoreTextBox.Text = adultScore.ToString();
+                    RacyScoreTextBox.Text = racyScore.ToString();
 
-                Thread.Sleep(1000);
+                    IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
+                    IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
+                }
 
-                if ((bool)imageData.ImageModerationResults.IsImageRacyClassified)
-                    return false;
-                if ((bool)imageData.ImageModerationResults.IsImageAdultClassified)
+                Thread.Sleep(5000);
+
+                if ((bool)imageData.ImageModerationResults.IsImageRacyClassified || ((bool)imageData.ImageModerationResults.IsImageAdultClassified))
                     return false;
             }
 
