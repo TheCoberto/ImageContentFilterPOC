@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace ImageContentFilterPOC
 {
+    // don't commit 
     class Globals
     {
-        public const string ContentModSubscriptionKey = "be10492da55341eaa7ccac583dea4f38";
-        public const string ContentModEndPoint = "https://contentmoderatorthecoberto.cognitiveservices.azure.com/";
+        public const string ContentModSubscriptionKey = "your key";
+        public const string ContentModEndPoint = "your endpoint";
 
-        public const string FormRecognizerSubscriptionKey = "8a9ab6843aef40e18315a71e83c06bad";
-        public const string FormRecognizerEndPoint = "https://documentintelligencethecoberto.cognitiveservices.azure.com/";
+        public const string FormRecognizerSubscriptionKey = "your key";
+        public const string FormRecognizerEndPoint = "your endpoint";
 
-        public const string TOP_DIR = @"C:\Repos\Content Moderation POC\";
+        public const string TOP_DIR = @"your project directory file path";
     }
 }
