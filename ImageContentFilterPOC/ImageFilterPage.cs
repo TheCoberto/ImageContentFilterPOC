@@ -4,6 +4,7 @@ using Azure;
 using Azure.AI.FormRecognizer.DocumentAnalysis;
 using Image = System.Drawing.Image;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace ImageContentFilterPOC
 {
@@ -27,7 +28,7 @@ namespace ImageContentFilterPOC
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.ResultLabel.Text = "Evaluating...";
+                this.ResultLabel.Text = Globals.RESULT_EVALUATING;
 
                 FileInfo? fileInfo = new FileInfo(fileDialog.FileName);
 
@@ -42,7 +43,7 @@ namespace ImageContentFilterPOC
 
                     if (imageData is not null)
                     {
-                        if (!IsContentSafe(imageData))
+                        if (!Helpers.IsContentSafe(imageData))
                         {
                             this.ResultLabel.Text = "Fail! NSFW content detected.";
                         }
@@ -51,36 +52,11 @@ namespace ImageContentFilterPOC
                             this.ResultLabel.Text = "Pass! This is a safe file.";
                         }
 
-                        decimal adultScore = Math.Round((decimal)imageData.ImageModerationResults.AdultClassificationScore, 2);
-                        decimal racyScore = Math.Round((decimal)imageData.ImageModerationResults.RacyClassificationScore, 2);
-                        decimal adultScoreRounded = adultScore * 100;
-                        decimal racyScoreRounded = racyScore * 100;
-                        int adultScorePercentage = (int)Math.Round((decimal)adultScoreRounded);
-                        int racyScorePercentage = (int)Math.Round((decimal)racyScoreRounded);
-
-                        AdultScoreTextBox.Text = $"{adultScore} - {adultScorePercentage}%";
-                        RacyScoreTextBox.Text = $"{racyScore} - {racyScorePercentage}%";
-
-                        IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
-                        IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
+                        DisplayScores(imageData);
 
                         try
                         {
-                            using (var image = Image.FromFile(fileInfo.FullName))
-                            {
-                                foreach (var prop in image.PropertyItems)
-                                {
-                                    if (prop.Id == 0x0112) // value of EXIF rotation property
-                                    {
-                                        int orientationValue = image.GetPropertyItem(prop.Id).Value[0];
-                                        RotateFlipType rotateFlipType = GetRotateFlipType(orientationValue);
-                                        image.RotateFlip(rotateFlipType);
-                                        break;
-                                    }
-                                }
-                                imageBox.Image = (Image)image.Clone();
-                                imageBox.SizeMode = PictureBoxSizeMode.Zoom;
-                            }
+                            DisplayImage(fileInfo);
                         }
                         catch
                         {
@@ -91,45 +67,55 @@ namespace ImageContentFilterPOC
             }
             else
             {
-                ResultLabel.Text = "Select an image file (.jpg, .jpeg, .png, .gif)";
+                ResultLabel.Text = Globals.RESULT_PLACEHOLDER;
             }
         }
 
-        public bool IsContentSafe(EvaluationData imageData)
+        private void DisplayScores(EvaluationData? imageData)
         {
-            if ((bool)imageData.ImageModerationResults.IsImageRacyClassified ||
-                ((bool)imageData.ImageModerationResults.IsImageAdultClassified))
-                return false;
+            decimal adultScore = Math.Round((decimal)imageData.ImageModerationResults.AdultClassificationScore, 2);
+            decimal racyScore = Math.Round((decimal)imageData.ImageModerationResults.RacyClassificationScore, 2);
+            decimal adultScoreRounded = adultScore * 100;
+            decimal racyScoreRounded = racyScore * 100;
+            int adultScorePercentage = (int)Math.Round((decimal)adultScoreRounded);
+            int racyScorePercentage = (int)Math.Round((decimal)racyScoreRounded);
 
-            return true;
+            AdultScoreTextBox.Text = $"{adultScore} - {adultScorePercentage}%";
+            RacyScoreTextBox.Text = $"{racyScore} - {racyScorePercentage}%";
+
+            IsAdultTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageAdultClassified ? "Yes" : "No";
+            IsRacyTextBox.Text = (bool)imageData?.ImageModerationResults?.IsImageRacyClassified ? "Yes" : "No";
+        }
+
+        private void DisplayImage(FileInfo? fileInfo)
+        {
+            using (var image = Image.FromFile(fileInfo.FullName))
+            {
+                foreach (var prop in image.PropertyItems)
+                {
+                    if (prop.Id == 0x0112) // value of EXIF rotation property
+                    {
+                        int orientationValue = image.GetPropertyItem(prop.Id).Value[0];
+                        RotateFlipType rotateFlipType = GetRotateFlipType(orientationValue);
+                        image.RotateFlip(rotateFlipType);
+                        break;
+                    }
+                }
+                imageBox.Image = (Image)image.Clone();
+                imageBox.SizeMode = PictureBoxSizeMode.Zoom;
+            }
         }
 
         private EvaluationData? GetAdultRacyResults(Stream image)
         {
-            var imageData = new EvaluationData();
-
             try
             {
-                if (image.Length > 4000000) // If larger than 4MB
+                if (image.Length > 4000000) // If larger than 4MB, reduce size
                 {
-                    var imageObj = Image.FromStream(image);
-                    var scaleFactor = (double)800 / (double)Math.Max(imageObj.Width, imageObj.Height);
-                    var newWidth = (int)(imageObj.Width * scaleFactor);
-                    var newHeight = (int)(imageObj.Height * scaleFactor);
-
-                    using var newImage = new Bitmap(newWidth, newHeight);
-                    using var graphics = Graphics.FromImage(newImage);
-                    graphics.DrawImage(imageObj, 0, 0, newWidth, newHeight);
-
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        newImage.Save(memoryStream, imageObj.RawFormat);
-                        image = new MemoryStream(memoryStream.ToArray());
-                    }
+                    image = ReduceImageSize(image);
                 }
 
-                imageData.ImageModerationResults = Client.ImageModeration.EvaluateFileInput(image, true);
-                return imageData;
+                return EvaluateImage(image);
             }
             catch (Exception ex)
             {
@@ -138,9 +124,34 @@ namespace ImageContentFilterPOC
             return null;
         }
 
+        private Stream ReduceImageSize(Stream image)
+        {
+            var imageObj = Image.FromStream(image);
+            var scaleFactor = (double)800 / (double)Math.Max(imageObj.Width, imageObj.Height);
+            var newWidth = (int)(imageObj.Width * scaleFactor);
+            var newHeight = (int)(imageObj.Height * scaleFactor);
+
+            using var newImage = new Bitmap(newWidth, newHeight);
+            using var graphics = Graphics.FromImage(newImage);
+            graphics.DrawImage(imageObj, 0, 0, newWidth, newHeight);
+
+            using (var memoryStream = new MemoryStream())
+            {
+                newImage.Save(memoryStream, imageObj.RawFormat);
+                return image = new MemoryStream(memoryStream.ToArray());
+            }
+        }
+
+        private EvaluationData? EvaluateImage(Stream image)
+        {
+            var imageData = new EvaluationData();
+            imageData.ImageModerationResults = Client.ImageModeration.EvaluateFileInput(image, true);
+            return imageData;
+        }
+
         private static RotateFlipType GetRotateFlipType(int orientationValue)
         {
-            RotateFlipType rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+            RotateFlipType rotateFlipType;
 
             switch (orientationValue)
             {
@@ -176,7 +187,6 @@ namespace ImageContentFilterPOC
             return rotateFlipType;
         }
 
-
         private void DriversLicenseButton_Click(object sender, EventArgs e)
         {
             var fileDialog = new OpenFileDialog();
@@ -185,7 +195,7 @@ namespace ImageContentFilterPOC
             {
                 var fileInfo = new FileInfo(fileDialog.FileName);
 
-                ResultLabel.Text = "Evaluating...";
+                ResultLabel.Text = Globals.RESULT_EVALUATING;
 
                 if (Helpers.IsPicture(fileInfo.Extension))
                 {
@@ -193,7 +203,6 @@ namespace ImageContentFilterPOC
 
                     RecognizeDriverLicense(image);
                 }
-
                 try
                 {
                     imageBox.Image = Image.FromFile(fileInfo.FullName);
@@ -205,7 +214,7 @@ namespace ImageContentFilterPOC
             }
             else
             {
-                ResultLabel.Text = "Select an image file (.jpg, .jpeg, .png, .gif)";
+                ResultLabel.Text = Globals.RESULT_PLACEHOLDER;
             }
         }
 
@@ -248,7 +257,7 @@ namespace ImageContentFilterPOC
             {
                 var fileInfo = new FileInfo(fileDialog.FileName);
 
-                ResultLabel.Text = "Evaluating...";
+                ResultLabel.Text = Globals.RESULT_EVALUATING;
 
                 if (Helpers.IsPicture(fileInfo.Extension))
                 {
@@ -256,7 +265,6 @@ namespace ImageContentFilterPOC
 
                     RecognizeCreditCard(image);
                 }
-
                 try
                 {
                     imageBox.Image = Image.FromFile(fileInfo.FullName);
@@ -268,7 +276,7 @@ namespace ImageContentFilterPOC
             }
             else
             {
-                ResultLabel.Text = "Select an image file (.jpg, .jpeg, .png, .gif)";
+                ResultLabel.Text = Globals.RESULT_PLACEHOLDER;
             }
         }
 

@@ -28,207 +28,217 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AdultOrRacyButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ResultLabel = new System.Windows.Forms.Label();
-            this.imageBox = new System.Windows.Forms.PictureBox();
-            this.DriversLicenseButton = new System.Windows.Forms.Button();
-            this.CreditCardButton = new System.Windows.Forms.Button();
-            this.AdultScoreLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.RacyScoreLabel = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.AdultScoreTextBox = new System.Windows.Forms.TextBox();
-            this.RacyScoreTextBox = new System.Windows.Forms.TextBox();
-            this.IsRacyLabel = new System.Windows.Forms.Label();
-            this.IsAdultLabel = new System.Windows.Forms.Label();
-            this.IsAdultTextBox = new System.Windows.Forms.TextBox();
-            this.IsRacyTextBox = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.imageBox)).BeginInit();
-            this.SuspendLayout();
+            AdultOrRacyButton = new Button();
+            label1 = new Label();
+            ResultLabel = new Label();
+            imageBox = new PictureBox();
+            DriversLicenseButton = new Button();
+            CreditCardButton = new Button();
+            AdultScoreLabel = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            RacyScoreLabel = new Label();
+            label6 = new Label();
+            AdultScoreTextBox = new TextBox();
+            RacyScoreTextBox = new TextBox();
+            IsRacyLabel = new Label();
+            IsAdultLabel = new Label();
+            IsAdultTextBox = new TextBox();
+            IsRacyTextBox = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)imageBox).BeginInit();
+            SuspendLayout();
             // 
             // AdultOrRacyButton
             // 
-            this.AdultOrRacyButton.Location = new System.Drawing.Point(29, 564);
-            this.AdultOrRacyButton.Name = "AdultOrRacyButton";
-            this.AdultOrRacyButton.Size = new System.Drawing.Size(121, 24);
-            this.AdultOrRacyButton.TabIndex = 0;
-            this.AdultOrRacyButton.Text = "Adult Or Racy";
-            this.AdultOrRacyButton.UseVisualStyleBackColor = true;
-            this.AdultOrRacyButton.Click += new System.EventHandler(this.AdultOrRacyButton_Click);
+            AdultOrRacyButton.Location = new Point(70, 1542);
+            AdultOrRacyButton.Margin = new Padding(7, 8, 7, 8);
+            AdultOrRacyButton.Name = "AdultOrRacyButton";
+            AdultOrRacyButton.Size = new Size(294, 66);
+            AdultOrRacyButton.TabIndex = 0;
+            AdultOrRacyButton.Text = "Adult Or Racy";
+            AdultOrRacyButton.UseVisualStyleBackColor = true;
+            AdultOrRacyButton.Click += AdultOrRacyButton_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(204, 601);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Results:";
+            label1.AutoSize = true;
+            label1.Location = new Point(495, 1643);
+            label1.Margin = new Padding(7, 0, 7, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(118, 41);
+            label1.TabIndex = 1;
+            label1.Text = "Results:";
             // 
             // ResultLabel
             // 
-            this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(250, 601);
-            this.ResultLabel.Name = "ResultLabel";
-            this.ResultLabel.Size = new System.Drawing.Size(225, 15);
-            this.ResultLabel.TabIndex = 2;
-            this.ResultLabel.Text = "Select an image file (.jpeg, .jpg, .png, .gif)";
+            ResultLabel.AutoSize = true;
+            ResultLabel.Location = new Point(607, 1643);
+            ResultLabel.Margin = new Padding(7, 0, 7, 0);
+            ResultLabel.Name = "ResultLabel";
+            ResultLabel.Size = new Size(562, 41);
+            ResultLabel.TabIndex = 2;
+            ResultLabel.Text = "Select an image file (.jpeg, .jpg, .png, .gif)";
             // 
             // imageBox
             // 
-            this.imageBox.Location = new System.Drawing.Point(239, 85);
-            this.imageBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.imageBox.Name = "imageBox";
-            this.imageBox.Size = new System.Drawing.Size(972, 457);
-            this.imageBox.TabIndex = 3;
-            this.imageBox.TabStop = false;
+            imageBox.Location = new Point(580, 232);
+            imageBox.Margin = new Padding(5, 3, 5, 3);
+            imageBox.Name = "imageBox";
+            imageBox.Size = new Size(2361, 1249);
+            imageBox.TabIndex = 3;
+            imageBox.TabStop = false;
             // 
             // DriversLicenseButton
             // 
-            this.DriversLicenseButton.Location = new System.Drawing.Point(28, 596);
-            this.DriversLicenseButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.DriversLicenseButton.Name = "DriversLicenseButton";
-            this.DriversLicenseButton.Size = new System.Drawing.Size(122, 24);
-            this.DriversLicenseButton.TabIndex = 4;
-            this.DriversLicenseButton.Text = "Driver\'s License";
-            this.DriversLicenseButton.UseVisualStyleBackColor = true;
-            this.DriversLicenseButton.Click += new System.EventHandler(this.DriversLicenseButton_Click);
+            DriversLicenseButton.Location = new Point(68, 1629);
+            DriversLicenseButton.Margin = new Padding(5, 3, 5, 3);
+            DriversLicenseButton.Name = "DriversLicenseButton";
+            DriversLicenseButton.Size = new Size(296, 66);
+            DriversLicenseButton.TabIndex = 4;
+            DriversLicenseButton.Text = "Driver's License";
+            DriversLicenseButton.UseVisualStyleBackColor = true;
+            DriversLicenseButton.Click += DriversLicenseButton_Click;
             // 
             // CreditCardButton
             // 
-            this.CreditCardButton.Location = new System.Drawing.Point(29, 627);
-            this.CreditCardButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.CreditCardButton.Name = "CreditCardButton";
-            this.CreditCardButton.Size = new System.Drawing.Size(122, 22);
-            this.CreditCardButton.TabIndex = 6;
-            this.CreditCardButton.Text = "Credit Card";
-            this.CreditCardButton.UseVisualStyleBackColor = true;
-            this.CreditCardButton.Click += new System.EventHandler(this.CreditCardButton_Click);
+            CreditCardButton.Location = new Point(70, 1714);
+            CreditCardButton.Margin = new Padding(5, 3, 5, 3);
+            CreditCardButton.Name = "CreditCardButton";
+            CreditCardButton.Size = new Size(296, 60);
+            CreditCardButton.TabIndex = 6;
+            CreditCardButton.Text = "Credit Card";
+            CreditCardButton.UseVisualStyleBackColor = true;
+            CreditCardButton.Click += CreditCardButton_Click;
             // 
             // AdultScoreLabel
             // 
-            this.AdultScoreLabel.AutoSize = true;
-            this.AdultScoreLabel.Location = new System.Drawing.Point(869, 596);
-            this.AdultScoreLabel.Name = "AdultScoreLabel";
-            this.AdultScoreLabel.Size = new System.Drawing.Size(71, 15);
-            this.AdultScoreLabel.TabIndex = 7;
-            this.AdultScoreLabel.Text = "Adult Score:";
+            AdultScoreLabel.AutoSize = true;
+            AdultScoreLabel.Location = new Point(2110, 1629);
+            AdultScoreLabel.Margin = new Padding(7, 0, 7, 0);
+            AdultScoreLabel.Name = "AdultScoreLabel";
+            AdultScoreLabel.Size = new Size(178, 41);
+            AdultScoreLabel.TabIndex = 7;
+            AdultScoreLabel.Text = "Adult Score:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1015, 602);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 15);
-            this.label3.TabIndex = 8;
+            label3.AutoSize = true;
+            label3.Location = new Point(2465, 1645);
+            label3.Margin = new Padding(7, 0, 7, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(0, 41);
+            label3.TabIndex = 8;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(949, 596);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(141, 15);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "0 is lowest; 1.00 is highest";
+            label4.AutoSize = true;
+            label4.Location = new Point(2305, 1629);
+            label4.Margin = new Padding(7, 0, 7, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(360, 41);
+            label4.TabIndex = 9;
+            label4.Text = "0 is lowest; 1.00 is highest";
             // 
             // RacyScoreLabel
             // 
-            this.RacyScoreLabel.AutoSize = true;
-            this.RacyScoreLabel.Location = new System.Drawing.Point(869, 618);
-            this.RacyScoreLabel.Name = "RacyScoreLabel";
-            this.RacyScoreLabel.Size = new System.Drawing.Size(67, 15);
-            this.RacyScoreLabel.TabIndex = 10;
-            this.RacyScoreLabel.Text = "Racy Score:";
+            RacyScoreLabel.AutoSize = true;
+            RacyScoreLabel.Location = new Point(2110, 1689);
+            RacyScoreLabel.Margin = new Padding(7, 0, 7, 0);
+            RacyScoreLabel.Name = "RacyScoreLabel";
+            RacyScoreLabel.Size = new Size(169, 41);
+            RacyScoreLabel.TabIndex = 10;
+            RacyScoreLabel.Text = "Racy Score:";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(949, 618);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(141, 15);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "0 is lowest; 1.00 is highest";
+            label6.AutoSize = true;
+            label6.Location = new Point(2305, 1689);
+            label6.Margin = new Padding(7, 0, 7, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(360, 41);
+            label6.TabIndex = 11;
+            label6.Text = "0 is lowest; 1.00 is highest";
             // 
             // AdultScoreTextBox
             // 
-            this.AdultScoreTextBox.Location = new System.Drawing.Point(1106, 595);
-            this.AdultScoreTextBox.Margin = new System.Windows.Forms.Padding(1);
-            this.AdultScoreTextBox.Name = "AdultScoreTextBox";
-            this.AdultScoreTextBox.Size = new System.Drawing.Size(105, 23);
-            this.AdultScoreTextBox.TabIndex = 12;
+            AdultScoreTextBox.Location = new Point(2686, 1626);
+            AdultScoreTextBox.Margin = new Padding(2, 3, 2, 3);
+            AdultScoreTextBox.Name = "AdultScoreTextBox";
+            AdultScoreTextBox.Size = new Size(249, 47);
+            AdultScoreTextBox.TabIndex = 12;
             // 
             // RacyScoreTextBox
             // 
-            this.RacyScoreTextBox.Location = new System.Drawing.Point(1106, 621);
-            this.RacyScoreTextBox.Margin = new System.Windows.Forms.Padding(1);
-            this.RacyScoreTextBox.Name = "RacyScoreTextBox";
-            this.RacyScoreTextBox.Size = new System.Drawing.Size(105, 23);
-            this.RacyScoreTextBox.TabIndex = 13;
+            RacyScoreTextBox.Location = new Point(2686, 1697);
+            RacyScoreTextBox.Margin = new Padding(2, 3, 2, 3);
+            RacyScoreTextBox.Name = "RacyScoreTextBox";
+            RacyScoreTextBox.Size = new Size(249, 47);
+            RacyScoreTextBox.TabIndex = 13;
             // 
             // IsRacyLabel
             // 
-            this.IsRacyLabel.AutoSize = true;
-            this.IsRacyLabel.Location = new System.Drawing.Point(1295, 624);
-            this.IsRacyLabel.Name = "IsRacyLabel";
-            this.IsRacyLabel.Size = new System.Drawing.Size(46, 15);
-            this.IsRacyLabel.TabIndex = 14;
-            this.IsRacyLabel.Text = "Is Racy:";
+            IsRacyLabel.AutoSize = true;
+            IsRacyLabel.Location = new Point(3145, 1706);
+            IsRacyLabel.Margin = new Padding(7, 0, 7, 0);
+            IsRacyLabel.Name = "IsRacyLabel";
+            IsRacyLabel.Size = new Size(116, 41);
+            IsRacyLabel.TabIndex = 14;
+            IsRacyLabel.Text = "Is Racy:";
             // 
             // IsAdultLabel
             // 
-            this.IsAdultLabel.AutoSize = true;
-            this.IsAdultLabel.Location = new System.Drawing.Point(1295, 598);
-            this.IsAdultLabel.Name = "IsAdultLabel";
-            this.IsAdultLabel.Size = new System.Drawing.Size(50, 15);
-            this.IsAdultLabel.TabIndex = 15;
-            this.IsAdultLabel.Text = "Is Adult:";
+            IsAdultLabel.AutoSize = true;
+            IsAdultLabel.Location = new Point(3145, 1635);
+            IsAdultLabel.Margin = new Padding(7, 0, 7, 0);
+            IsAdultLabel.Name = "IsAdultLabel";
+            IsAdultLabel.Size = new Size(125, 41);
+            IsAdultLabel.TabIndex = 15;
+            IsAdultLabel.Text = "Is Adult:";
             // 
             // IsAdultTextBox
             // 
-            this.IsAdultTextBox.Location = new System.Drawing.Point(1349, 595);
-            this.IsAdultTextBox.Margin = new System.Windows.Forms.Padding(1);
-            this.IsAdultTextBox.Name = "IsAdultTextBox";
-            this.IsAdultTextBox.Size = new System.Drawing.Size(105, 23);
-            this.IsAdultTextBox.TabIndex = 16;
+            IsAdultTextBox.Location = new Point(3276, 1631);
+            IsAdultTextBox.Margin = new Padding(2, 3, 2, 3);
+            IsAdultTextBox.Name = "IsAdultTextBox";
+            IsAdultTextBox.Size = new Size(249, 47);
+            IsAdultTextBox.TabIndex = 16;
             // 
             // IsRacyTextBox
             // 
-            this.IsRacyTextBox.Location = new System.Drawing.Point(1349, 622);
-            this.IsRacyTextBox.Margin = new System.Windows.Forms.Padding(1);
-            this.IsRacyTextBox.Name = "IsRacyTextBox";
-            this.IsRacyTextBox.Size = new System.Drawing.Size(105, 23);
-            this.IsRacyTextBox.TabIndex = 17;
+            IsRacyTextBox.Location = new Point(3276, 1705);
+            IsRacyTextBox.Margin = new Padding(2, 3, 2, 3);
+            IsRacyTextBox.Name = "IsRacyTextBox";
+            IsRacyTextBox.Size = new Size(249, 47);
+            IsRacyTextBox.TabIndex = 17;
             // 
             // ImageFilterPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1483, 656);
-            this.Controls.Add(this.IsRacyTextBox);
-            this.Controls.Add(this.IsAdultTextBox);
-            this.Controls.Add(this.IsAdultLabel);
-            this.Controls.Add(this.IsRacyLabel);
-            this.Controls.Add(this.RacyScoreTextBox);
-            this.Controls.Add(this.AdultScoreTextBox);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.RacyScoreLabel);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.AdultScoreLabel);
-            this.Controls.Add(this.CreditCardButton);
-            this.Controls.Add(this.DriversLicenseButton);
-            this.Controls.Add(this.imageBox);
-            this.Controls.Add(this.ResultLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.AdultOrRacyButton);
-            this.Name = "ImageFilterPage";
-            this.Text = "Content Moderator POC";
-            ((System.ComponentModel.ISupportInitialize)(this.imageBox)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(17F, 41F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(3602, 1793);
+            Controls.Add(IsRacyTextBox);
+            Controls.Add(IsAdultTextBox);
+            Controls.Add(IsAdultLabel);
+            Controls.Add(IsRacyLabel);
+            Controls.Add(RacyScoreTextBox);
+            Controls.Add(AdultScoreTextBox);
+            Controls.Add(label6);
+            Controls.Add(RacyScoreLabel);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(AdultScoreLabel);
+            Controls.Add(CreditCardButton);
+            Controls.Add(DriversLicenseButton);
+            Controls.Add(imageBox);
+            Controls.Add(ResultLabel);
+            Controls.Add(label1);
+            Controls.Add(AdultOrRacyButton);
+            Margin = new Padding(7, 8, 7, 8);
+            Name = "ImageFilterPage";
+            Text = "Content Moderator POC";
+            ((System.ComponentModel.ISupportInitialize)imageBox).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

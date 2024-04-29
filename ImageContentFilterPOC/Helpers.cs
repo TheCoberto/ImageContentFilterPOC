@@ -1,8 +1,9 @@
 ﻿using Microsoft.Azure.CognitiveServices.ContentModerator;
+using static ImageContentFilterPOC.ImageFilterPage;
 
 namespace ImageContentFilterPOC
 {
-    class Helpers
+    public class Helpers
     {
         public static bool IsPicture(string fileExtension)
         {
@@ -24,6 +25,15 @@ namespace ImageContentFilterPOC
             client.Endpoint = endpoint;
 
             return client;
+        }
+
+        public static bool IsContentSafe(EvaluationData imageData)
+        {
+            if ((bool)imageData.ImageModerationResults.IsImageRacyClassified ||
+                ((bool)imageData.ImageModerationResults.IsImageAdultClassified))
+                return false;
+
+            return true;
         }
     }
 }
